@@ -1,18 +1,15 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Home from "./page/Home";
-import { ThemeDemo } from "./components/ThemeDemo";
-import { ThemeProvider } from "./providers/ThemeProvider"; // Asegúrate de que la ruta es correcta
+import React from 'react';
+import { ThemeProvider } from './providers/ThemeProvider';
+import Home from './page/Home';
 
+// Removed BrowserRouter, Routes, Route imports as they are no longer used.
+// Removed import for ThemeDemo (already done).
+// Assuming App.css import (if any) is handled in main.jsx or index.css directly.
 
 function App() {
   return (
-    <ThemeProvider> {/* Envuelve todo con tu ThemeProvider */}
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<Home/>} />
-          {/* Puedes agregar más rutas aquí */}
-        </Routes>
-      </BrowserRouter>
+    <ThemeProvider>
+      <Home />
     </ThemeProvider>
   );
 }
