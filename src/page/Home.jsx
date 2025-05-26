@@ -119,6 +119,7 @@ export default function Home() {
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, []);
+const tableHeadClasses = "bg-gray-200 text-gray-700 font-bold";
 
   return (
     <div className={`min-h-screen p-4 ${t('bg-light-background', 'bg-dark-background')}`}>
