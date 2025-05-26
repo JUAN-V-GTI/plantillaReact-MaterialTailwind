@@ -1,7 +1,6 @@
-import React, { createContext, useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react'; // Removed createContext
 import { ThemeProvider as MaterialTailwindProvider } from '@material-tailwind/react';
-
-const ThemeContext = createContext();
+import { ThemeContext } from '../context/theme.context.js'; // Added import
 
 export const ThemeProvider = ({ children }) => {
   const [theme, setTheme] = useState('light');
@@ -11,7 +10,8 @@ export const ThemeProvider = ({ children }) => {
     const savedTheme = localStorage.getItem('theme') || 
                       (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
     setTheme(savedTheme);
-    document.documentElement.classList.toggle('dark', savedTheme === 'dark');
+    document.documentElement.classList.remove('light', 'dark');
+    document.documentElement.classList.add(savedTheme);
   }, []);
 
   // Función para cambiar tema
@@ -19,7 +19,8 @@ export const ThemeProvider = ({ children }) => {
     const newTheme = theme === 'light' ? 'dark' : 'light';
     setTheme(newTheme);
     localStorage.setItem('theme', newTheme);
-    document.documentElement.classList.toggle('dark', newTheme === 'dark');
+    document.documentElement.classList.remove('light', 'dark');
+    document.documentElement.classList.add(newTheme);
   };
 
   // Configuración completa para Material Tailwind components
@@ -213,7 +214,7 @@ export const ThemeProvider = ({ children }) => {
 
 return (
     <ThemeContext.Provider value={{ theme, toggleTheme }}>
-      <MaterialTailwindProvider>
+      <MaterialTailwindProvider key={theme} value={materialTailwindTheme}>
         <div className={theme === 'light' ? 'bg-gray-50' : 'bg-gray-900'}>
           {children}
         </div>
